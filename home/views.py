@@ -1,15 +1,21 @@
 from django.shortcuts import render
 
 from home.models import Contact
-from .models import Contact
+from .models import *
 app_name = "home"
 
 # Create your views here.
+
+def base():
+    view = {}
+    view['feedbacks'] = Feedback.objects.all()
+    return view
+
 def home(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', base())
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'about.html', base())
 
 def contact(request):
     if request.method == 'POST':
@@ -36,4 +42,4 @@ def price(request):
     return render(request, 'price.html')
 
 def services(request):
-    return render(request, 'services.html')
+    return render(request, 'services.html', base())
